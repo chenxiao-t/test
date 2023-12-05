@@ -35,7 +35,7 @@ jobs:
         with:
           image-tag: ${{ env.IMAGE_TAG }}
           deploy-artifact: false
-          CELOBOT_GITHUB_TOKEN: ${{ secrets.CELOBOT_GITHUB_TOKEN }}
+          CELOBOT_GITHUB_TOKEN: ${{ secrets.XIAO_GITHUB_TOKEN }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
