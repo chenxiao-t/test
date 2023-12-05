@@ -1,0 +1,41 @@
+name: Build Docker image with k6 and script
+
+on:
+  push:
+    branches:
+      - test-1
+    paths-ignore:
+      - '**/**.md'
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    # Permissions are needed for the build action for sigstore signing; actions:write, contents:write, checks: write are for Test Report
+    permissions:
+      id-token: write
+      actions: write
+      contents: write
+      checks: write
+    outputs:
+      image-tag: ${{ steps.identify-version.outputs.IMAGE_TAG }}
+    steps:
+      - name: Checkout Develop
+        uses: actions/checkout@v4
+        with:
+          ref: 'test-1'
+
+      - name: Configure git
+        shell: bash
+        run: |
+          git config user.name 'celobot'
+          git config user.email 'github-celobot@celonis.com'
+          git fetch --all --tags
+
+      - name: Build and publish docker mage
+        uses: ./.github/project-actions/build-and-publish-artifact
+        with:
+          image-tag: ${{ env.IMAGE_TAG }}
+          deploy-artifact: false
+          CELOBOT_GITHUB_TOKEN: ${{ secrets.CELOBOT_GITHUB_TOKEN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
