@@ -44,13 +44,6 @@ runs:
         push: true
         tags: ${{ inputs.image-tag }}
 
-    - name: Generate and attest provenance
-      uses: celonis/sigstore-container-signing-action@master
-      with:
-        image-registry: 652406827250.dkr.ecr.eu-central-1.amazonaws.com
-        image-name: cloud/backend
-        image-tag: ${{ inputs.image-tag }}
-
     - name: Logout of Amazon ECR
       shell: bash
       if: ${{ always() }}
