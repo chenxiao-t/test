@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  build-image:
+  openapi-work-flow:
     runs-on: ubuntu-latest
     # Permissions are needed for the build action for sigstore signing; actions:write, contents:write, checks: write are for Test Report
     permissions:

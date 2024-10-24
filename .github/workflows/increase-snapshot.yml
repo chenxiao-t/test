@@ -1,7 +1,6 @@
 name: Workflow 1
 
 on:
-  pull_request:
   check_run:
     types:
       - completed
