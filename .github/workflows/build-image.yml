@@ -1,11 +1,9 @@
-name: Build Docker image with k6 and script
+name: Workflow 1
 
 on:
   push:
     branches:
       - test-1
-    paths-ignore:
-      - '**/**.md'
 jobs:
   build-image:
     runs-on: ubuntu-latest
@@ -33,7 +31,7 @@ jobs:
       - name: Build and publish docker mage
         uses: ./.github/project-actions/build-and-publish-artifact
         with:
-          image-tag: ${{ env.IMAGE_TAG }}
+          image-tag: ""
           deploy-artifact: false
           CELOBOT_GITHUB_TOKEN: ${{ secrets.XIAO_GITHUB_TOKEN }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

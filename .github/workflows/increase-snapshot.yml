@@ -1,0 +1,25 @@
+name: Workflow 1
+
+on:
+  pull_request:
+  check_run:
+    types:
+      - completed
+jobs:
+  merge-snapshot-pr:
+    runs-on: ubuntu-latest
+    # Permissions are needed for the build action for sigstore signing; actions:write, contents:write, checks: write are for Test Report
+    permissions:
+      id-token: write
+      actions: write
+      contents: write
+      checks: write
+    steps:
+      - name: Validate pr
+        run: |
+          echo "${{ github.event.check_run.pull_requests }}"
+          echo "${{ github.event.check_run }}"
+
+      - name: Merge PR
+        run: |
+          echo "merge PR"

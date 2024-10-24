@@ -1,0 +1,24 @@
+name: Workflow 1
+
+on:
+  pull_request:
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    # Permissions are needed for the build action for sigstore signing; actions:write, contents:write, checks: write are for Test Report
+    permissions:
+      id-token: write
+      actions: write
+      contents: write
+      checks: write
+    steps:
+      - name: Checkout Main
+        uses: actions/checkout@v4
+        with:
+          ref: 'test-1'
+
+      - name: Do Something
+        shell: bash
+        run: |
+          echo "doing something about openapi..."
